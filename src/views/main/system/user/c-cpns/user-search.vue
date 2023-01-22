@@ -4,30 +4,22 @@
     <el-form :model="searchForm" ref="formRef" label-width="80px" size="large">
       <el-row :gutter="20">
         <el-col :span="8">
+          <!-- prop属性是 表单model 的键名 在定义表单验证和重置时是必填的 -->
           <el-form-item label="用户名" prop="name">
-            <el-input
-              v-model="searchForm.name"
-              placeholder="请输入查询的用户名"
-            />
+            <el-input v-model="searchForm.name" placeholder="请输入查询的用户名" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="真实姓名" prop="realname">
-            <el-input
-              v-model="searchForm.realname"
-              placeholder="请输入查询的真实姓名"
-            />
+            <el-input v-model="searchForm.realname" placeholder="请输入查询的真实姓名" />
           </el-form-item>
         </el-col>
         <el-col :span="8">
           <el-form-item label="手机号码" prop="cellphone">
-            <el-input
-              v-model="searchForm.cellphone"
-              placeholder="请输入查询的手机号码"
-            />
+            <el-input v-model="searchForm.cellphone" placeholder="请输入查询的手机号码" />
           </el-form-item>
         </el-col>
-
+        <!-- 超出24的部分会另外起一行 -->
         <el-col :span="8">
           <el-form-item label="状态" prop="enable">
             <el-select
@@ -57,33 +49,31 @@
     <!-- 2.重置和搜索的按钮 -->
     <div class="btns">
       <el-button icon="Refresh" @click="handleResetClick">重置</el-button>
-      <el-button icon="Search" type="primary" @click="handleQueryClick"
-        >查询</el-button
-      >
+      <el-button icon="Search" type="primary" @click="handleQueryClick">查询</el-button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import type { ElForm } from 'element-plus'
+import { reactive, ref } from "vue";
+import type { ElForm } from "element-plus";
 
 const searchForm = reactive({
-  name: '',
-  realname: '',
-  cellphone: '',
+  name: "",
+  realname: "",
+  cellphone: "",
   enable: 1,
   createAt: []
-})
+});
 
 // 重置操作
-const formRef = ref<InstanceType<typeof ElForm>>()
+const formRef = ref<InstanceType<typeof ElForm>>();
 function handleResetClick() {
-  formRef.value?.resetFields()
+  formRef.value?.resetFields();
 }
-
+// 用户查询
 function handleQueryClick() {
-  console.log('handleQueryClick')
+  console.log("handleQueryClick");
 }
 </script>
 

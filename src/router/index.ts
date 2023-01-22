@@ -1,10 +1,10 @@
 import { LOGIN_TOKEN } from "@/global/constants";
 import { localCache } from "@/utils/cache";
 import { firstMenu } from "@/utils/map-menus";
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   // 映射关系: path => component
   routes: [
     {
@@ -35,7 +35,7 @@ router.beforeEach((to) => {
     return "/login";
   }
 
-  // 如果是进入到main
+  // 如果是进入到main 前往第一个路由
   if (to.path === "/main") {
     return firstMenu?.url;
   }

@@ -18,9 +18,13 @@ import { mapPathToBreadcrumbs } from "@/utils/map-menus";
 
 const route = useRoute();
 const userMenus = useLoginStore().userMenus;
+// 值变化时计算属性帮助重新获取新的值
 const breadcrumbs = computed(() => {
   return mapPathToBreadcrumbs(route.path, userMenus);
 });
+// console.log(useLoginStore);
+// console.log(route.path);
+// console.log(breadcrumbs);
 </script>
 
 <style lang="less" scoped>

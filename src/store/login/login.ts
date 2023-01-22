@@ -44,7 +44,7 @@ const useLoginStore = defineStore("login", {
       // 重要: 动态的添加路由
       const routes = mapMenusToRoutes(userMenus);
       routes.forEach((route) => router.addRoute("main", route));
-      console.log(router);
+      // console.log(router);
       // 5.页面跳转(main页面)
       router.push("/main");
     },
@@ -62,7 +62,7 @@ const useLoginStore = defineStore("login", {
         // 2.动态添加路由
         const routes = mapMenusToRoutes(userMenus);
         routes.forEach((route) => router.addRoute("main", route));
-        console.log(router);
+        // console.log(routes);
       }
     }
   }

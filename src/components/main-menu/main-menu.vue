@@ -64,7 +64,7 @@ function handleItemClick(item: any) {
   router.push(url);
 }
 
-// 3.ElMenu的默认菜单
+// 3.ElMenu选中哪个菜单
 const route = useRoute();
 const defaultActive = computed(() => {
   const pathMenu = mapPathToMenu(route.path, userMenus);

@@ -7,47 +7,18 @@
     <div class="table">
       <el-table :data="usersList" border style="width: 100%">
         <el-table-column align="center" type="selection" width="50px" />
-        <el-table-column
-          align="center"
-          type="index"
-          label="序号"
-          width="60px"
-        />
+        <el-table-column align="center" type="index" label="序号" width="60px" />
 
-        <el-table-column
-          align="center"
-          label="用户名"
-          prop="name"
-          width="150px"
-        />
-        <el-table-column
-          align="center"
-          label="真实姓名"
-          prop="realname"
-          width="150px"
-        />
-        <el-table-column
-          align="center"
-          label="手机号码"
-          prop="cellphone"
-          width="150px"
-        />
-        <el-table-column
-          align="center"
-          label="状态"
-          prop="enable"
-          width="100px"
-        />
+        <el-table-column align="center" label="用户名" prop="name" width="150px" />
+        <el-table-column align="center" label="真实姓名" prop="realname" width="150px" />
+        <el-table-column align="center" label="手机号码" prop="cellphone" width="150px" />
+        <el-table-column align="center" label="状态" prop="enable" width="100px" />
         <el-table-column align="center" label="创建时间" prop="createAt" />
         <el-table-column align="center" label="更新时间" prop="updateAt" />
 
         <el-table-column align="center" label="操作" width="150px">
-          <el-button size="small" icon="Edit" type="primary" text>
-            编辑
-          </el-button>
-          <el-button size="small" icon="Delete" type="danger" text>
-            删除
-          </el-button>
+          <el-button size="small" icon="Edit" type="primary" text> 编辑 </el-button>
+          <el-button size="small" icon="Delete" type="danger" text> 删除 </el-button>
         </el-table-column>
       </el-table>
     </div>
@@ -56,15 +27,18 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import useSystemStore from '@/store/main/system/system'
+import { storeToRefs } from "pinia";
+import useSystemStore from "@/store/main/system/system";
 
 // 1.发起action，请求usersList的数据
-const systemStore = useSystemStore()
-systemStore.postUsersListAction()
+const systemStore = useSystemStore();
+systemStore.postUsersListAction();
 
 // 2.获取usersList数据,进行展示
-const { usersList } = storeToRefs(systemStore)
+// 第一步操作是异步的导致第二步无法及时拿到数据 可以包裹storeToRefs或者使用计算属性
+// 使用storeToRefs()将state中的状态解构出来，方便在视图中使用，
+// storeToRefs函数可将普通数据变成响应式数据。
+const { usersList } = storeToRefs(systemStore);
 </script>
 
 <style lang="less" scoped>

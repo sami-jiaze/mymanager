@@ -1,8 +1,9 @@
 <template>
   <div class="app">
-    <!-- <el-config-provider :locale="zhCn"> -->
-    <router-view></router-view>
-    <!-- </el-config-provider> -->
+    <!-- elementplus全局国际化(中文)配置 -->
+    <el-config-provider :locale="zhCn">
+      <router-view></router-view>
+    </el-config-provider>
   </div>
 </template>
 
