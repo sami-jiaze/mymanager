@@ -1,0 +1,33 @@
+{
+  // 继承自
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  // 需要编译的文件
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "auto-imports.d.ts",
+    "components.d.ts"
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      // vscode编译配置 代码提示
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "types": [
+      "element-plus/global",
+      //vite环境变量
+      "vite/client"
+    ],
+    // 隐式any
+    "noImplicitAny": false
+  },
+  "references": [
+    {
+      "path": "./tsconfig.config.json"
+    }
+  ]
+}
