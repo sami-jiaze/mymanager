@@ -1,10 +1,6 @@
 <template>
   <div class="department">
-    <page-search
-      :search-config="searchConfig"
-      @query-click="handleQueryClick"
-      @reset-click="handleResetClick"
-    />
+    <page-search1 @query-click="handleQueryClick" @reset-click="handleResetClick" />
     <page-content ref="contentRef" @new-click="handleNewClick" @edit-click="handleEditClick" />
     <page-modal ref="modalRef" />
   </div>
@@ -12,11 +8,9 @@
 
 <script setup lang="ts" name="department">
 import { ref } from "vue";
-import PageSearch from "@/components/page-search/page-search.vue";
+import PageSearch1 from "./c-cpns/page-search.vue";
 import PageContent from "./c-cpns/page-content.vue";
 import PageModal from "./c-cpns/page-modal.vue";
-
-import searchConfig from "./config/search.config";
 
 // 点击search, content的操作
 const contentRef = ref<InstanceType<typeof PageContent>>();

@@ -1,25 +1,17 @@
 <template>
   <div class="content">
     <div class="header">
-      <h3 class="title">用户列表</h3>
-      <el-button type="primary" @click="handleNewUserClick">新建用户</el-button>
+      <h3 class="title">部门列表</h3>
+      <el-button type="primary" @click="handleNewUserClick">新建部门</el-button>
     </div>
     <div class="table">
-      <el-table :data="usersList" border style="width: 100%">
-        <el-table-column align="center" type="selection" width="50px" />
+      <el-table :data="pageList" border style="width: 100%">
+        <el-table-column align="center" type="selection" width="60px" />
         <el-table-column align="center" type="index" label="序号" width="60px" />
 
-        <el-table-column align="center" label="用户名" prop="name" width="150px" />
-        <el-table-column align="center" label="真实姓名" prop="realname" width="150px" />
-        <el-table-column align="center" label="手机号码" prop="cellphone" width="150px" />
-        <el-table-column align="center" label="状态" prop="enable" width="100px">
-          <!-- 作用域插槽 -->
-          <template #default="scope">
-            <el-button size="small" :type="scope.row.enable ? 'primary' : 'danger'" plain>
-              {{ scope.row.enable ? "启用" : "禁用" }}
-            </el-button>
-          </template>
-        </el-table-column>
+        <el-table-column align="center" label="部门名称" prop="name" width="150px" />
+        <el-table-column align="center" label="部门领导" prop="leader" width="150px" />
+        <el-table-column align="center" label="上级部门" prop="parentId" width="150px" />
         <el-table-column align="center" label="创建时间" prop="createAt">
           <template #default="scope">
             {{ formatUTC(scope.row.createAt) }}
@@ -30,7 +22,6 @@
             {{ formatUTC(scope.row.updateAt) }}
           </template>
         </el-table-column>
-
         <el-table-column align="center" label="操作" width="150px">
           <template #default="scope">
             <el-button
@@ -59,9 +50,9 @@
       <el-pagination
         v-model:current-page="currentPage"
         v-model:page-size="pageSize"
-        :page-sizes="[5, 10, 15, 20]"
+        :page-sizes="[10, 20, 30]"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="usersTotalCount"
+        :total="pageTotalCount"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       />
@@ -70,60 +61,55 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import useSystemStore from "@/store/main/system/system";
 import { formatUTC } from "@/utils/format";
-// 子传父 自定义事件（函数） 向父组件传值
+import { ref } from "vue";
+
+// 定义事件
 const emit = defineEmits(["newClick", "editClick"]);
-// 分页相关
+
+// 1.发起action，请求usersList的数据
+const systemStore = useSystemStore();
 const currentPage = ref(1);
 const pageSize = ref(10);
-// 发起action，请求usersList的数据
-const systemStore = useSystemStore();
-fetchUserListData();
-// 获取usersList数据,进行展示
-// 第一步操作是异步的导致第二步无法及时拿到数据 可以包裹storeToRefs或者使用计算属性
-// 使用storeToRefs()将state中的状态解构出来，方便在视图中使用，
-// storeToRefs函数可将普通数据变成响应式数据。
-const { usersList, usersTotalCount } = storeToRefs(systemStore);
+fetchPageListData();
 
-// 分页相关
+// 2.获取usersList数据,进行展示
+const { pageList, pageTotalCount } = storeToRefs(systemStore);
+
+// 3.页码相关的逻辑
 function handleSizeChange() {
-  fetchUserListData();
+  fetchPageListData();
 }
 function handleCurrentChange() {
-  fetchUserListData();
+  fetchPageListData();
 }
 
-// 封装函数, 用于发送网络请求
-function fetchUserListData(formData: any = {}) {
+// 4.定义函数, 用于发送网络请求
+function fetchPageListData(formData: any = {}) {
+  // 1.获取offset/size
   const size = pageSize.value;
   const offset = (currentPage.value - 1) * size;
   const pageInfo = { size, offset };
 
+  // 2.发起网络请求
   const queryInfo = { ...pageInfo, ...formData };
-  systemStore.postUsersListAction(queryInfo);
+  systemStore.postPageListAction("department", queryInfo);
 }
 
-// 删除
+// 5.删除/新建/编辑的操作
 function handleDeleteBtnClick(id: number) {
-  systemStore.deleteUserByIdAction(id);
-  // console.log(id);
+  systemStore.deletePageByIdAction("department", id);
 }
-// 新增
 function handleNewUserClick() {
-  // 子传父 自定义事件（函数） 向父组件传值
   emit("newClick");
 }
-// 编辑
 function handleEditBtnClick(itemData: any) {
-  // 子传父 自定义事件（函数） 向父组件传值
   emit("editClick", itemData);
 }
 
-// 子传父 把数据导出，供父组件user.vue使用
-defineExpose({ fetchUserListData });
+defineExpose({ fetchPageListData });
 </script>
 
 <style lang="less" scoped>
@@ -154,6 +140,7 @@ defineExpose({ fetchUserListData });
     padding: 5px 8px;
   }
 }
+
 .pagination {
   display: flex;
   justify-content: flex-end;
