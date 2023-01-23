@@ -1,19 +1,19 @@
 <template>
   <div class="department">
     <page-search1 @query-click="handleQueryClick" @reset-click="handleResetClick" />
-    <page-content ref="contentRef" @new-click="handleNewClick" @edit-click="handleEditClick" />
-    <page-modal ref="modalRef" />
+    <page-content1 ref="contentRef" @new-click="handleNewClick" @edit-click="handleEditClick" />
+    <page-modal1 ref="modalRef" />
   </div>
 </template>
 
 <script setup lang="ts" name="department">
 import { ref } from "vue";
 import PageSearch1 from "./c-cpns/page-search.vue";
-import PageContent from "./c-cpns/page-content.vue";
-import PageModal from "./c-cpns/page-modal.vue";
+import PageContent1 from "./c-cpns/page-content.vue";
+import PageModal1 from "./c-cpns/page-modal.vue";
 
 // 点击search, content的操作
-const contentRef = ref<InstanceType<typeof PageContent>>();
+const contentRef = ref<InstanceType<typeof PageContent1>>();
 function handleQueryClick(queryInfo: any) {
   contentRef.value?.fetchPageListData(queryInfo);
 }
@@ -22,7 +22,7 @@ function handleResetClick() {
 }
 
 // 点击content, modal的操作
-const modalRef = ref<InstanceType<typeof PageModal>>();
+const modalRef = ref<InstanceType<typeof PageModal1>>();
 function handleNewClick() {
   modalRef.value?.setModalVisible();
 }

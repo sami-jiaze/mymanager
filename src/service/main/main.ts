@@ -13,3 +13,9 @@ export function getEntireDepartments() {
     url: "/department/list"
   });
 }
+// 菜单列表
+export function getEntireMenus() {
+  return hyRequest.post({
+    url: "/menu/list"
+  });
+}
