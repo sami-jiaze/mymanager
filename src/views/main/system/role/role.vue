@@ -54,7 +54,7 @@ import { mapMenuListToIds } from "@/utils/map-menus";
 
 // 逻辑关系
 const { contentRef, handleQueryClick, handleResetClick } = usePageContent();
-const { modalRef, handleNewClick, handleEditClick } = usePageModal(editCallback);
+const { modalRef, handleNewClick, handleEditClick } = usePageModal(newCallback, editCallback);
 
 // 获取完整的菜单
 const mainStore = useMainStore();
@@ -70,6 +70,7 @@ function handleElTreeCheck(data1: any, data2: any) {
 
 const treeRef = ref<InstanceType<typeof ElTree>>();
 
+// 编辑role权限分配
 function editCallback(itemData: any) {
   // 数据在发现变化的时候，vue并不会立刻去更新Dom，而是将修改数据的操作放在了一个异步操作队列中
   // 等待同一事件循环中的所有数据变化完成之后，会将队列中的事件拿来进行处理，进行DOM的更新
@@ -78,6 +79,13 @@ function editCallback(itemData: any) {
     const menuIds = mapMenuListToIds(itemData.menuList);
     // setCheckedKeys由element提供
     treeRef.value?.setCheckedKeys(menuIds);
+  });
+}
+// 新建角色按钮 role权限分配
+function newCallback() {
+  nextTick(() => {
+    // setCheckedKeys由element提供
+    treeRef.value?.setCheckedKeys([]);
   });
 }
 </script>
