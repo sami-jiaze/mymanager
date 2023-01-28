@@ -2,8 +2,6 @@ import axios from "axios";
 import type { AxiosInstance } from "axios";
 import type { HYRequestConfig } from "./type";
 
-// 拦截器: 蒙版Loading/token/修改配置
-
 /**
  * 两个难点:
  *  1.拦截器进行精细控制
