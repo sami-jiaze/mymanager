@@ -11,6 +11,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@commitlint/config-conventional": "^17.4.2",
     "@element-plus/icons-vue": "^2.0.10",
     "axios": "^1.1.2",
     "countup.js": "^2.3.2",
@@ -23,6 +24,7 @@
     "vue-router": "^4.1.5"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.4.2",
     "@rushstack/eslint-patch": "^1.1.4",
     "@types/node": "^16.11.56",
     "@vitejs/plugin-vue": "^3.0.3",

@@ -9,6 +9,7 @@
     "auto-imports.d.ts",
     "components.d.ts"
   ],
+  "exclude": ["commitlint.config.js"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

@@ -66,7 +66,7 @@ const useSystemStore = defineStore("system", {
     },
     async newPageDataAction(pageName: string, pageInfo: any) {
       const newResult = await newPageData(pageName, pageInfo);
-      // console.log(newResult);
+      console.log(newResult);
       this.postPageListAction(pageName, { offset: 0, size: 10 });
       // 新增数据后再次获取完整的数据
       const mainStore = useMainStore();
